@@ -66,10 +66,19 @@ add_filter('genesis_pre_load_favicon', function () {
 });
 
 //* Edit Read More links
-
 add_filter( 'get_the_content_more_link', 'sp_read_more_link' );
 function sp_read_more_link() {
 	return '... <a class="more-link" href="' . get_permalink() . '">Read More &raquo;</a>';
+}
+
+//* Remove the entry meta in the entry header
+remove_action( 'genesis_entry_header', 'genesis_post_info', 12 );
+
+//* Customize some of the entry meta pre text
+add_filter( 'genesis_post_meta', 'new_entry_meta_footer' );
+function new_entry_meta_footer( $post_meta ) {
+	$post_meta = '[post_categories before="Read other Articles on: "] [post_tags before="Tagged with: "]';
+	return $post_meta;
 }
 
 //* Unregister layout settings
