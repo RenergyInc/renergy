@@ -1507,32 +1507,26 @@ article.about .team {margin-bottom: 60px;}
 
 .page.page-template-page_blog-php .content .entry-header {text-align: left;}
 
+/*
+
 .single .content .entry-meta,
 .page .content .entry-meta {
-	display: none;
-/*
 	font-size: 18px;
 	font-weight: 700;
 	text-transform: uppercase;
 	padding-bottom: 10px;
-*/
 }
 
 .single .content .entry-header .entry-meta {
 	display: none;
-/*
 	width: 50%;
 	border-bottom: 1px solid #CCC;
 	padding-bottom: 20px;
 	margin: 0 auto 20px;
+}
 */
-}
 
-.page.page-template-page_blog-php .entry-footer .entry-meta {
-	display: none;
-}
-
-.ssba {padding-bottom: 20px;}
+.ssba::after { margin-bottom: 20px; }
 
 .more-link {
 	text-transform: uppercase;
