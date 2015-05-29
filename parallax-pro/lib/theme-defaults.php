@@ -22,25 +22,25 @@ function parallax_theme_setting_defaults() {
 	if( function_exists( 'genesis_update_settings' ) ) {
 
 		genesis_update_settings( array(
-			'blog_cat_num'              => 5,	
+			'blog_cat_num'              => 5,
 			'content_archive'           => 'full',
 			'content_archive_limit'     => 0,
 			'content_archive_thumbnail' => 0,
 			'posts_nav'                 => 'numeric',
 			'site_layout'               => 'full-width-content',
 		) );
-		
+
 	} else {
 
 		_genesis_update_settings( array(
-			'blog_cat_num'              => 5,	
+			'blog_cat_num'              => 5,
 			'content_archive'           => 'full',
 			'content_archive_limit'     => 0,
 			'content_archive_thumbnail' => 0,
 			'posts_nav'                 => 'numeric',
 			'site_layout'               => 'full-width-content',
 		) );
-		
+
 	}
 
 	update_option( 'posts_per_page', 5 );
@@ -60,9 +60,9 @@ function parallax_social_default_styles( $defaults ) {
 		'icon_color_hover'       => '#ffffff',
 		'size'                   => 60,
 		);
-		
+
 	$args = wp_parse_args( $args, $defaults );
-	
+
 	return $args;
-	
+
 }

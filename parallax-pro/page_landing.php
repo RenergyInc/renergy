@@ -17,7 +17,7 @@ function parallax_add_body_class( $classes ) {
 
    $classes[] = 'parallax-landing';
    return $classes;
-   
+
 }
 
 //* Force full width content layout

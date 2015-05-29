@@ -26,16 +26,16 @@ function parallax_home_genesis_meta() {
 
 			}
 
-		
+
 		}
 
 		//* Add parallax-home body class
 		add_filter( 'body_class', 'parallax_body_class' );
 		function parallax_body_class( $classes ) {
-		
+
    			$classes[] = 'parallax-home';
   			return $classes;
-  			
+
 		}
 
 		//* Force full width content layout
@@ -83,22 +83,22 @@ function parallax_homepage_widgets() {
 		'before' => '<div class="home-odd home-section-5 widget-area"><div class="wrap">',
 		'after'  => '</div></div>',
 	) );
-	
+
 	genesis_widget_area( 'home-section-6', array(
 		'before' => '<div class="home-even home-section-6 widget-area"><div class="wrap">',
 		'after'  => '</div></div>',
 	) );
-	
+
 	genesis_widget_area( 'home-section-7', array(
 		'before' => '<div class="home-odd home-section-7 widget-area"><div class="wrap">',
 		'after'  => '</div></div>',
 	) );
-	
+
 	genesis_widget_area( 'home-section-8', array(
 		'before' => '<div class="home-even home-section-8 widget-area"><div class="wrap">',
 		'after'  => '</div></div>',
 	) );
-	
+
 	genesis_widget_area( 'home-section-9', array(
 		'before' => '<div class="home-odd home-section-9 widget-area"><div class="wrap">',
 		'after'  => '</div></div>',

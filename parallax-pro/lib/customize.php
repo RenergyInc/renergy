@@ -28,7 +28,7 @@ class Child_Parallax_Image_Control extends WP_Customize_Image_Control {
 
 		$this->add_tab( 'upload-new', __( 'Upload New', 'parallax' ), array( $this, 'tab_upload_new' ) );
 		$this->add_tab( 'uploaded',   __( 'Uploaded', 'parallax' ),   array( $this, 'tab_uploaded' ) );
-		
+
 		if ( $this->setting->default )
 			$this->add_tab( 'default',  __( 'Default', 'parallax' ),  array( $this, 'tab_default_background' ) );
 
@@ -43,13 +43,13 @@ class Child_Parallax_Image_Control extends WP_Customize_Image_Control {
 	public function tab_default_background() {
 		$this->print_tab_image( $this->setting->default );
 	}
-	
+
 }
 
 	global $wp_customize;
 
 	$images = apply_filters( 'parallax_images', array( '1', '3', '7' ) );
-	
+
 	$wp_customize->add_section( 'parallax-settings', array(
 		'title'    => __( 'Background Images', 'parallax' ),
 		'priority' => 35,

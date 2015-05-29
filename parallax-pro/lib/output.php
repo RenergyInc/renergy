@@ -1,5 +1,5 @@
 <?php
-/* 
+/*
  * Adds the required CSS to the front end.
  */
 
@@ -24,7 +24,7 @@ function parallax_css() {
 
 	$css = '';
 
-	foreach ( $settings as $section => $value ) { 
+	foreach ( $settings as $section => $value ) {
 
 		$background = $value['image'] ? sprintf( 'background-image: url(%s);', $value['image'] ) : '';
 
