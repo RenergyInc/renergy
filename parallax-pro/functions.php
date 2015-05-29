@@ -13,7 +13,7 @@ add_action( 'customize_register', 'parallax_customizer' );
 function parallax_customizer(){
 
 	require_once( get_stylesheet_directory() . '/lib/customize.php' );
-	
+
 }
 
 //* Include Section Image CSS
@@ -31,7 +31,7 @@ function parallax_enqueue_scripts_styles() {
 	wp_enqueue_script( 'parallax-responsive-menu', get_bloginfo( 'stylesheet_directory' ) . '/js/responsive-menu.js', array( 'jquery' ), '1.0.0' );
 
 	wp_enqueue_style( 'dashicons' );
-	wp_enqueue_style( 'parallax-google-fonts', '//fonts.googleapis.com/css?family=Montserrat|Sorts+Mill+Goudy', array(), CHILD_THEME_VERSION );
+	wp_enqueue_style( 'parallax-google-fonts', '//fonts.googleapis.com/css?family=Source+Sans+Pro', array(), CHILD_THEME_VERSION );
 
 }
 
@@ -61,6 +61,17 @@ function parallax_secondary_menu_args( $args ){
 
 }
 
+add_filter('genesis_pre_load_favicon', function () {
+    return get_stylesheet_directory_uri().'/favicon.ico';
+});
+
+//* Edit Read More links
+
+add_filter( 'get_the_content_more_link', 'sp_read_more_link' );
+function sp_read_more_link() {
+	return '... <a class="more-link" href="' . get_permalink() . '">Read More &raquo;</a>';
+}
+
 //* Unregister layout settings
 genesis_unregister_layout( 'content-sidebar-sidebar' );
 genesis_unregister_layout( 'sidebar-content-sidebar' );
@@ -68,10 +79,7 @@ genesis_unregister_layout( 'sidebar-sidebar-content' );
 
 //* Add support for additional color styles
 add_theme_support( 'genesis-style-selector', array(
-	'parallax-pro-blue'   => __( 'Parallax Pro Blue', 'parallax' ),
 	'parallax-pro-green'  => __( 'Parallax Pro Green', 'parallax' ),
-	'parallax-pro-orange' => __( 'Parallax Pro Orange', 'parallax' ),
-	'parallax-pro-pink'   => __( 'Parallax Pro Pink', 'parallax' ),
 ) );
 
 //* Unregister secondary sidebar
@@ -79,8 +87,8 @@ unregister_sidebar( 'sidebar-alt' );
 
 //* Add support for custom header
 add_theme_support( 'custom-header', array(
-	'width'           => 360,
-	'height'          => 70,
+	'width'           => 310,
+	'height'          => 85,
 	'header-selector' => '.site-title a',
 	'header-text'     => false,
 ) );
@@ -111,6 +119,22 @@ function parallax_comments_gravatar( $args ) {
 	return $args;
 
 }
+
+//* Enable featured images on PAGES
+/*
+add_action( 'genesis_entry_header', 'single_post_featured_image', 5 );
+
+function single_post_featured_image() {
+
+	if ( ! is_singular( 'page' ) )
+		return;
+
+	$img = genesis_get_image( array( 'format' => 'html', 'size' => 'large', 'attr' => array( 'class' => 'post-image' ) ) );
+	printf( '<a href="%s" title="%s">%s</a>', get_permalink(), the_title_attribute( 'echo=0' ), $img );
+
+}
+*/
+
 
 //* Add support for 3-column footer widgets
 add_theme_support( 'genesis-footer-widgets', 1 );
@@ -148,3 +172,55 @@ genesis_register_sidebar( array(
 	'name'        => __( 'Home Section 5', 'parallax' ),
 	'description' => __( 'This is the home section 5 section.', 'parallax' ),
 ) );
+genesis_register_sidebar( array(
+	'id'          => 'home-section-6',
+	'name'        => __( 'Home Section 6', 'parallax' ),
+	'description' => __( 'This is the home section 6 section.', 'parallax' ),
+) );
+genesis_register_sidebar( array(
+	'id'          => 'home-section-7',
+	'name'        => __( 'Home Section 7', 'parallax' ),
+	'description' => __( 'This is the home section 7 section.', 'parallax' ),
+) );
+genesis_register_sidebar( array(
+	'id'          => 'home-section-8',
+	'name'        => __( 'Home Section 8', 'parallax' ),
+	'description' => __( 'This is the home section 8 section.', 'parallax' ),
+) );
+genesis_register_sidebar( array(
+	'id'          => 'home-section-9',
+	'name'        => __( 'Home Section 9', 'parallax' ),
+	'description' => __( 'This is the home section 9 section.', 'parallax' ),
+) );
+
+
+add_action( 'transition_post_status', 'child_maybe_notify_facebook_scraper', 0, 3 );
+
+function child_maybe_notify_facebook_scraper($new_status, $old_status, $post)
+{
+    // No need to notify Facebook if this post hasn't been published.
+    if ($new_status !== 'publish') {
+        return;
+    }
+
+    $url = get_permalink($post);
+
+    // Post went from "future" to "publish".  Time to immediately tell
+    // Facebook to rescrape this post.
+    if ('future' === $old_status) {
+        child_facebook_rescrape_url($url);
+    }
+}
+
+function child_facebook_rescrape_url($url)
+{
+    $endpoint = sprintf(
+        'https://graph.facebook.com/?%s',
+        http_build_query(array('scrape' => true, 'id' => $url))
+    );
+
+    $response = wp_remote_post($endpoint, array());
+
+    // @TODO: There should really be some error handling here.  Maybe
+    // even some notifications for when this is triggered?
+}
