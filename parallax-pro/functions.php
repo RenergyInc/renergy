@@ -19,6 +19,9 @@ function parallax_customizer(){
 //* Include Section Image CSS
 include_once( get_stylesheet_directory() . '/lib/output.php' );
 
+//* Start pulling in Custom Renergy tweaks
+include_once( get_stylesheet_directory() . '/lib/renergy-custom.php' );
+
 //* Child theme (do not remove)
 define( 'CHILD_THEME_NAME', 'Parallax Pro Theme' );
 define( 'CHILD_THEME_URL', 'http://my.studiopress.com/themes/parallax/' );
@@ -61,26 +64,6 @@ function parallax_secondary_menu_args( $args ){
 
 }
 
-add_filter('genesis_pre_load_favicon', function () {
-    return get_stylesheet_directory_uri().'/favicon.ico';
-});
-
-//* Edit Read More links
-add_filter( 'get_the_content_more_link', 'sp_read_more_link' );
-function sp_read_more_link() {
-	return '... <a class="more-link" href="' . get_permalink() . '">Read More &raquo;</a>';
-}
-
-//* Remove the entry meta in the entry header
-remove_action( 'genesis_entry_header', 'genesis_post_info', 12 );
-
-//* Customize some of the entry meta pre text
-add_filter( 'genesis_post_meta', 'new_entry_meta_footer' );
-function new_entry_meta_footer( $post_meta ) {
-	$post_meta = '[post_categories before="Read other Articles on: "] [post_tags before="Tagged with: "]';
-	return $post_meta;
-}
-
 //* Unregister layout settings
 genesis_unregister_layout( 'content-sidebar-sidebar' );
 genesis_unregister_layout( 'sidebar-content-sidebar' );
@@ -89,6 +72,10 @@ genesis_unregister_layout( 'sidebar-sidebar-content' );
 //* Add support for additional color styles
 add_theme_support( 'genesis-style-selector', array(
 	'parallax-pro-green'  => __( 'Parallax Pro Green', 'parallax' ),
+	#'parallax-pro-blue'   => __( 'Parallax Pro Blue', 'parallax' ),
+	#'parallax-pro-green'  => __( 'Parallax Pro Green', 'parallax' ),
+	#'parallax-pro-orange' => __( 'Parallax Pro Orange', 'parallax' ),
+	#'parallax-pro-pink'   => __( 'Parallax Pro Pink', 'parallax' ),
 ) );
 
 //* Unregister secondary sidebar
